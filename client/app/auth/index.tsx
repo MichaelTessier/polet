@@ -5,14 +5,14 @@ import { FormControl, FormControlError, FormControlErrorIcon, FormControlErrorTe
 // import { Checkbox, CheckboxIndicator, CheckboxIcon, CheckboxLabel } from "@/components/ui/checkbox";
 import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
-import { AlertCircleIcon, CheckIcon, EyeIcon, EyeOffIcon, Icon } from "@/components/ui/icon";
+import { AlertCircleIcon, EyeIcon, EyeOffIcon, Icon } from "@/components/ui/icon";
 import { Input, InputField, InputSlot, InputIcon } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { useState } from "react";
 import {
-  Camera,
+  Users,
 } from 'lucide-react-native';
-import { Box } from "@/components/ui/box";
+import { useTranslation } from 'react-i18next';
 
 export default function Index() {
   const [showPassword, setShowPassword] = useState(false)
@@ -21,9 +21,10 @@ export default function Index() {
   const [isEmailInvalid, setIsEmailInvalid] = useState(false);
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
 
-  function submitHandler() {    // Handle form submission logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+  
+  const { t } = useTranslation('auth');
+
+  function submitHandler() {  
 
     if(email === '') {
       setIsEmailInvalid(true);
@@ -37,7 +38,6 @@ export default function Index() {
 
     setIsEmailInvalid(false);
     setIsPasswordInvalid(false);
-    // Proceed with further processing (e.g., API call)
   }
 
   return (
@@ -47,14 +47,13 @@ export default function Index() {
 
 
         <Center>
-
         
         <Center className="w-16 h-16 rounded-full bg-primary-0 mb-5">
-          <Icon className="text-primary-500" as={Camera} size="xl"></Icon>
+          <Icon className="text-primary-500" as={Users} size="xl"></Icon>
         </Center>
 
           <Heading>Polet</Heading>
-          <Text className="mt-2">Connectez-vous</Text>
+          <Text className="mt-2">{t('login')}</Text>
         </Center>
 
       <FormControl 
@@ -63,12 +62,12 @@ export default function Index() {
         isRequired={true}
       >
         <FormControlLabel className="mt-4">
-          <FormControlLabelText>Email</FormControlLabelText>
+          <FormControlLabelText>{t('email')}</FormControlLabelText>
         </FormControlLabel>
         <Input className="my-1" size="lg">
           <InputField
             type="text"
-            placeholder="Enter your email"
+            placeholder={t('emailPlaceholder')}
             value={email}
             onChangeText={(text) => setEmail(text)}
           />
@@ -76,19 +75,19 @@ export default function Index() {
         <FormControlError>
           <FormControlErrorIcon as={AlertCircleIcon} className="text-error-500" />
           <FormControlErrorText className="text-error-500">
-            Ce champs est requis.
+            {t('error.requiredField')}
           </FormControlErrorText>
         </FormControlError>
       </FormControl>
 
       <FormControl isInvalid={isPasswordInvalid} isRequired={true}>
         <FormControlLabel className="mt-4">
-          <FormControlLabelText>Password</FormControlLabelText>
+          <FormControlLabelText>{t('password')}</FormControlLabelText>
         </FormControlLabel>
         <Input className="my-1" size="lg" >
           <InputField
             type={showPassword ? "text" : "password"}
-            placeholder="Enter your password"
+            placeholder={t('passwordPlaceholder')}
             value={password}
             onChangeText={(text) => setPassword(text)}
           />
@@ -102,20 +101,20 @@ export default function Index() {
         <FormControlError>
           <FormControlErrorIcon as={AlertCircleIcon} className="text-error-500" />
           <FormControlErrorText className="text-error-500">
-            Ce champs est doit comporter au moins 6 caractères.
+            {t('error.fieldLength', { count: 6 })}
           </FormControlErrorText>
         </FormControlError>
       </FormControl>
 
 
         <Button className="w-full my-5" size="sm" onPress={submitHandler}>
-          <ButtonText>Connexion</ButtonText>
+          <ButtonText>{t('loginAction')}</ButtonText>
         </Button>
 
         <HStack className="justify-end">
           <Button variant="link" size="sm">
             <ButtonText className="underline underline-offset-1">
-              Forgot Password?
+              {t('forgotPassword')}
             </ButtonText>
           </Button>
         </HStack>
