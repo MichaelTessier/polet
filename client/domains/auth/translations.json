@@ -11,12 +11,15 @@
     "passwordPlaceholder": "Entrez votre mot de passe",
     "forgotPassword": "Mot de passe oublié ?",
     "noAccount": "Vous n'avez pas de compte ?",
+    "createAccount": "Créez-en un",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "signUp": "Inscrivez-vous",
+    "signUpAction": "Inscription",
 
     "error": {
       "requiredField": "Ce champ est requis",
       "invalidEmail": "Adresse email invalide",
-      "fieldLength": "Ce champs est doit comporter au moins {count} caractères."
+      "fieldLength": "Ce champs doit comporter au moins {count} caractères."
     }
 
 
