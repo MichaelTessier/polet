@@ -6,8 +6,10 @@ export function useAuth() {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isEmailInvalid, setIsEmailInvalid] = useState(false);
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+  const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState('');
 
@@ -58,6 +60,7 @@ export function useAuth() {
       password: password,
     })
 
+    console.log("🚀 ~ signUp ~ error:", error)
     if (error) {
       setHasError(error.message);
     }
@@ -96,6 +99,11 @@ export function useAuth() {
       return;
     }
 
+    if(confirmPassword !== password) {
+      setIsConfirmPasswordInvalid(true);
+      return;
+    }
+
     setIsPasswordInvalid(false);  
     setLoading(true)
 
@@ -111,21 +119,22 @@ export function useAuth() {
   } 
 
   return {
-    showPassword,
-    setShowPassword,
+    confirmPassword,
     email,
-    setEmail,
-    password,
-    setPassword,
-    isEmailInvalid,
-    setIsEmailInvalid,
-    isPasswordInvalid,
-    setIsPasswordInvalid,
-    loading,
+    forgotPassword,
     hasError,
+    isConfirmPasswordInvalid,
+    isEmailInvalid,
+    isPasswordInvalid,
+    loading,
+    password,
+    resetPassword,
+    setConfirmPassword,
+    setEmail,
+    setPassword,
+    setShowPassword,
+    showPassword,
     signIn,
     signUp,
-    forgotPassword,
-    resetPassword,
   };
 }

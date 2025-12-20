@@ -5,34 +5,41 @@ import '@/global.css';
 
 import '../i18n';
 import '@/domains/auth/init';
+import AuthProvider from "@/domains/auth/providers/AuthProvider";
+import { SplashScreenController } from "@/domains/auth/components/SplashScreen/SplashScreen";
+import { StatusBar } from "expo-status-bar";
 
-export default function RootLayout() {
-  return <GluestackUIProvider>
+
+function RootNavigator() {
+  return (
     <Stack>
+
       <Stack.Screen
         name="index"
         options={{
           headerShown: false,
         }}
       />
+
       <Stack.Screen
-        name="auth/login"
+        name="auth"
         options={{
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="auth/sign-up"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="auth/forgot-password"
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack>  
-  </GluestackUIProvider>;
+      {/* <Stack.Screen name="+not-found" /> */}
+    </Stack>
+  )
+}
+
+export default function RootLayout() {
+  return (
+    <GluestackUIProvider>
+      <AuthProvider>
+        <SplashScreenController />
+        <RootNavigator />
+        <StatusBar style="auto" />
+      </AuthProvider>
+    </GluestackUIProvider>
+  );
 }

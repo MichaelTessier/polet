@@ -33,7 +33,7 @@ export default function SignUpForm() {
 
   return (
     <Card className="w-full" size="lg">
-      <AuthHeader label={t('login')} />
+      <AuthHeader label={t('signUp')} />
       <FormControl 
         isInvalid={isEmailInvalid} 
         className="mt-6" 
@@ -102,7 +102,6 @@ export default function SignUpForm() {
             onPress={() => router.push('/auth/login')}
           />
         </HStack>
-        {/* <DsButton label={t('forgotPassword')} variant="link"/> */}
       </VStack>
     </Card>
   );

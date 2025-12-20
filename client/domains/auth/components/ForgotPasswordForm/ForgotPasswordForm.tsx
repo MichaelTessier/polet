@@ -56,7 +56,7 @@ export default function ForgotPasswordForm() {
       <VStack className="my-5 gap-2">
         <Text className="text-error-text">{hasError}</Text>
         <DsButton 
-          label={t('signUpAction')} 
+          label={t('forgotPasswordAction')} 
           onPress={forgotPassword} 
           isLoading={loading}
         />

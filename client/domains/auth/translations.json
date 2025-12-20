@@ -7,21 +7,24 @@
     "loginAction": "Connexion",
     "email": "Email",
     "emailPlaceholder": "Entrez votre email",
+    "confirmPassword": "Confirmez le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
     "password": "Mot de passe",
     "passwordPlaceholder": "Entrez votre mot de passe",
     "forgotPassword": "Mot de passe oublié ?",
+    "forgotPasswordAction": "Réinitialiser le mot de passe",
     "noAccount": "Vous n'avez pas de compte ?",
     "createAccount": "Créez-en un",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "signUp": "Inscrivez-vous",
     "signUpAction": "Inscription",
-
+    "resetPassword": "Réinitialiser le mot de passe",
+    "resetPasswordAction": "Réinitialiser ",
     "error": {
       "requiredField": "Ce champ est requis",
       "invalidEmail": "Adresse email invalide",
-      "fieldLength": "Ce champs doit comporter au moins {count} caractères."
+      "fieldLength": "Ce champs doit comporter au moins {count} caractères.",
+      "confirmPasswordMismatch": "Les mots de passe ne correspondent pas."
     }
-
-
   }
 }

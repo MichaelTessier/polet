@@ -1,0 +1,47 @@
+import { useAuthContext } from '@/domains/auth/hooks/useAuthContext';
+import { Stack } from 'expo-router';
+
+export default function AuthLayout() {
+
+  const { isLoggedIn } = useAuthContext()
+  console.log("🚀 ~ RootNavigator ~ isLoggedIn:", isLoggedIn)
+  
+  return<>
+      <Stack>
+        <Stack.Protected guard={isLoggedIn}>
+          <Stack.Screen
+            name="profile"
+            options={{
+              headerShown: false,
+            }}
+          /> 
+        </Stack.Protected>
+        <Stack.Protected guard={!isLoggedIn}>
+          <Stack.Screen
+            name="login"
+            options={{
+              headerShown: false,
+            }}
+          /> 
+          <Stack.Screen
+            name="sign-up"
+            options={{
+              headerShown: false,
+            }}
+          /> 
+          <Stack.Screen
+            name="forgot-password"
+            options={{
+              headerShown: false,
+            }}
+          /> 
+          <Stack.Screen
+            name="reset-password"
+            options={{
+              headerShown: false,
+            }}
+          /> 
+        </Stack.Protected>
+      </Stack>
+  </> 
+}
