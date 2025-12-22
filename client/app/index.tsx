@@ -1,7 +1,7 @@
 import { Box } from "@/components/ui/box";
 import LogOutButton from "@/domains/auth/components/LogOutButton/LogOutButton";
 import { useAuthContext } from "@/domains/auth/hooks/useAuthContext";
-import { supabase } from "@/services/supabase";
+import { supabase } from "@/supabase";
 import { Session } from "@supabase/supabase-js";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";

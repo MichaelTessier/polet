@@ -10,7 +10,11 @@
     "start:android": "expo start --android",
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "types:generate": "supabase gen types typescript --linked > supabase/types/generated.ts",
+    "types:local": "supabase gen types typescript --local > supabase/types/generated.ts",
+    "types:check": "tsc --noEmit"
+    
   },
   "dependencies": {
     "@expo/html-elements": "^0.10.1",

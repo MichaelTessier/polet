@@ -1,5 +1,5 @@
 import { DsButton } from '@/components/ds/ds-button/DsButton'
-import { supabase } from '@/services/supabase'
+import { supabase } from '@/supabase'
 import React from 'react'
 
 async function onSignOutButtonPress() {
