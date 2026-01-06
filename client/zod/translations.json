@@ -1,0 +1,240 @@
+{
+  "en": {
+    "errors": {
+      "invalid_type": "Expected {{expected}}, received {{received}}",
+      "invalid_type_received_undefined": "Field is required",
+      "invalid_literal": "Invalid literal value, expected {{expected}}",
+      "unrecognized_keys": "Unrecognized key(s) in object: {{keys}}",
+      "invalid_union": "Invalid input toto",
+      "invalid_union_discriminator": "Invalid discriminator value. Expected {{options}}",
+      "invalid_enum_value": "Invalid enum value. Expected {{options}}, received '{{received}}'",
+      "invalid_arguments": "Invalid function arguments",
+      "invalid_return_type": "Invalid function return type",
+      "invalid_date": "Invalid date",
+      "invalid_string": "Invalid string",
+      "too_small": {
+        "array": {
+          "exact": "Array must contain exactly {{minimum}} element(s)",
+          "inclusive": "Array must contain at least {{minimum}} element(s)",
+          "not_inclusive": "Array must contain more than {{minimum}} element(s)"
+        },
+        "string": {
+          "exact": "String must contain exactly {{minimum}} character(s)",
+          "inclusive": "String must contain at least {{minimum}} character(s)",
+          "not_inclusive": "String must contain more than {{minimum}} character(s)"
+        },
+        "number": {
+          "exact": "Number must be exactly {{minimum}}",
+          "inclusive": "Number must be greater than or equal to {{minimum}}",
+          "not_inclusive": "Number must be greater than {{minimum}}"
+        },
+        "date": {
+          "exact": "Date must be exactly {{minimum}}",
+          "inclusive": "Date must be greater than or equal to {{minimum}}",
+          "not_inclusive": "Date must be greater than {{minimum}}"
+        }
+      },
+      "too_big": {
+        "array": {
+          "exact": "Array must contain exactly {{maximum}} element(s)",
+          "inclusive": "Array must contain at most {{maximum}} element(s)",
+          "not_inclusive": "Array must contain less than {{maximum}} element(s)"
+        },
+        "string": {
+          "exact": "String must contain exactly {{maximum}} character(s)",
+          "inclusive": "String must contain at most {{maximum}} character(s)",
+          "not_inclusive": "String must contain less than {{maximum}} character(s)"
+        },
+        "number": {
+          "exact": "Number must be exactly {{maximum}}",
+          "inclusive": "Number must be less than or equal to {{maximum}}",
+          "not_inclusive": "Number must be less than {{maximum}}"
+        },
+        "date": {
+          "exact": "Date must be exactly {{maximum}}",
+          "inclusive": "Date must be earlier than or equal to {{maximum}}",
+          "not_inclusive": "Date must be earlier than {{maximum}}"
+        }
+      },
+      "invalid_email": "Invalid email address",
+      "invalid_url": "Invalid URL",
+      "invalid_uuid": "Invalid UUID",
+      "custom": "Invalid value",
+      "regex": "Invalid format"
+    },
+    "types": {
+      "function": "function",
+      "number": "number",
+      "string": "string",
+      "nan": "nan",
+      "integer": "integer",
+      "float": "float",
+      "boolean": "boolean",
+      "date": "date",
+      "bigint": "bigint",
+      "undefined": "undefined",
+      "null": "null",
+      "array": "array",
+      "object": "object",
+      "unknown": "unknown",
+      "promise": "promise",
+      "void": "void",
+      "never": "never",
+      "map": "map",
+      "set": "set"
+    },
+    "common": {
+      "required": "This field is required",
+      "invalid": "Invalid value",
+      "min_length": "Must be at least {{min}} characters",
+      "max_length": "Must be no more than {{max}} characters",
+      "exact_length": "Must be exactly {{length}} characters",
+      "min_value": "Must be at least {{min}}",
+      "max_value": "Must be no more than {{max}}",
+      "positive": "Must be positive",
+      "negative": "Must be negative",
+      "non_negative": "Must be zero or positive",
+      "non_positive": "Must be zero or negative",
+      "integer": "Must be an integer",
+      "finite": "Must be finite"
+    },
+    "fields": {
+      "email": "Email address",
+      "password": "Password",
+      "username": "Username",
+      "phone": "Phone number",
+      "name": "Name",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "address": "Address",
+      "city": "City",
+      "country": "Country",
+      "postal_code": "Postal code",
+      "age": "Age",
+      "birth_date": "Birth date",
+      "website": "Website",
+      "company": "Company",
+      "title": "Title",
+      "description": "Description"
+    }
+  },
+  "fr": {
+    "errors": {
+      "invalid_type": "Type attendu {{expected}}, reçu {{received}}",
+      "invalid_type_received_undefined": "Ce champ est obligatoire",
+      "invalid_literal": "Valeur littérale invalide, attendu {{expected}}",
+      "unrecognized_keys": "Clé(s) non reconnue(s) dans l'objet : {{keys}}",
+      "invalid_union": "Saisie invalide",
+      "invalid_union_discriminator": "Valeur discriminante invalide. Attendu {{options}}",
+      "invalid_enum_value": "Valeur d'énumération invalide. Attendu {{options}}, reçu '{{received}}'",
+      "invalid_arguments": "Arguments de fonction invalides",
+      "invalid_return_type": "Type de retour de fonction invalide",
+      "invalid_date": "Date invalide",
+      "invalid_string": "Chaîne invalide",
+      "too_small": {
+        "array": {
+          "exact": "Le tableau doit contenir exactement {{minimum}} élément(s)",
+          "inclusive": "Le tableau doit contenir au moins {{minimum}} élément(s)",
+          "not_inclusive": "Le tableau doit contenir plus de {{minimum}} élément(s)"
+        },
+        "string": {
+          "exact": "La chaîne doit contenir exactement {{minimum}} caractère(s)",
+          "inclusive": "La chaîne doit contenir au moins {{minimum}} caractère(s)",
+          "not_inclusive": "La chaîne doit contenir plus de {{minimum}} caractère(s)"
+        },
+        "number": {
+          "exact": "Le nombre doit être exactement {{minimum}}",
+          "inclusive": "Le nombre doit être supérieur ou égal à {{minimum}}",
+          "not_inclusive": "Le nombre doit être supérieur à {{minimum}}"
+        },
+        "date": {
+          "exact": "La date doit être exactement {{minimum}}",
+          "inclusive": "La date doit être supérieure ou égale à {{minimum}}",
+          "not_inclusive": "La date doit être supérieure à {{minimum}}"
+        }
+      },
+      "too_big": {
+        "array": {
+          "exact": "Le tableau doit contenir exactement {{maximum}} élément(s)",
+          "inclusive": "Le tableau doit contenir au maximum {{maximum}} élément(s)",
+          "not_inclusive": "Le tableau doit contenir moins de {{maximum}} élément(s)"
+        },
+        "string": {
+          "exact": "La chaîne doit contenir exactement {{maximum}} caractère(s)",
+          "inclusive": "La chaîne doit contenir au maximum {{maximum}} caractère(s)",
+          "not_inclusive": "La chaîne doit contenir moins de {{maximum}} caractère(s)"
+        },
+        "number": {
+          "exact": "Le nombre doit être exactement {{maximum}}",
+          "inclusive": "Le nombre doit être inférieur ou égal à {{maximum}}",
+          "not_inclusive": "Le nombre doit être inférieur à {{maximum}}"
+        },
+        "date": {
+          "exact": "La date doit être exactement {{maximum}}",
+          "inclusive": "La date doit être antérieure ou égale à {{maximum}}",
+          "not_inclusive": "La date doit être antérieure à {{maximum}}"
+        }
+      },
+      "invalid_email": "Adresse email invalide",
+      "invalid_url": "URL invalide",
+      "invalid_uuid": "UUID invalide",
+      "custom": "Valeur invalide",
+      "regex": "Format invalide"
+    },
+    "types": {
+      "function": "fonction",
+      "number": "nombre",
+      "string": "chaîne",
+      "nan": "nan",
+      "integer": "entier",
+      "float": "décimal",
+      "boolean": "booléen",
+      "date": "date",
+      "bigint": "grand entier",
+      "undefined": "indéfini",
+      "null": "null",
+      "array": "tableau",
+      "object": "objet",
+      "unknown": "inconnu",
+      "promise": "promesse",
+      "void": "void",
+      "never": "jamais",
+      "map": "carte",
+      "set": "ensemble"
+    },
+    "common": {
+      "required": "Ce champ est obligatoire",
+      "invalid": "Valeur invalide",
+      "min_length": "Doit contenir au moins {{min}} caractères",
+      "max_length": "Doit contenir au maximum {{max}} caractères",
+      "exact_length": "Doit contenir exactement {{length}} caractères",
+      "min_value": "Doit être au minimum {{min}}",
+      "max_value": "Doit être au maximum {{max}}",
+      "positive": "Doit être positif",
+      "negative": "Doit être négatif",
+      "non_negative": "Doit être zéro ou positif",
+      "non_positive": "Doit être zéro ou négatif",
+      "integer": "Doit être un entier",
+      "finite": "Doit être fini"
+    },
+    "fields": {
+      "email": "Adresse email",
+      "password": "Mot de passe",
+      "username": "Nom d'utilisateur",
+      "phone": "Numéro de téléphone",
+      "name": "Nom",
+      "first_name": "Prénom",
+      "last_name": "Nom de famille",
+      "address": "Adresse",
+      "city": "Ville",
+      "country": "Pays",
+      "postal_code": "Code postal",
+      "age": "Âge",
+      "birth_date": "Date de naissance",
+      "website": "Site web",
+      "company": "Entreprise",
+      "title": "Titre",
+      "description": "Description"
+    }
+  }
+}

@@ -3,28 +3,27 @@
     "welcome": "welcome"
   },
   "fr": {
-    "login": "Connectez-vous",
-    "loginAction": "Connexion",
-    "email": "Email",
-    "emailPlaceholder": "Entrez votre email",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "confirmPassword": "Confirmez le mot de passe",
     "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
-    "password": "Mot de passe",
-    "passwordPlaceholder": "Entrez votre mot de passe",
+    "createAccount": "Créez-en un",
+    "email": "Email",
+    "emailPlaceholder": "Entrez votre email", 
     "forgotPassword": "Mot de passe oublié ?",
     "forgotPasswordAction": "Réinitialiser le mot de passe",
+    "fullName": "Nom complet",
+    "fullNamePlaceholder": "Votre nom complet",
+    "login": "Connectez-vous",
+    "loginAction": "Connexion",
     "noAccount": "Vous n'avez pas de compte ?",
-    "createAccount": "Créez-en un",
-    "alreadyHaveAccount": "Vous avez déjà un compte ?",
-    "signUp": "Inscrivez-vous",
-    "signUpAction": "Inscription",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
     "resetPassword": "Réinitialiser le mot de passe",
     "resetPasswordAction": "Réinitialiser ",
-    "error": {
-      "requiredField": "Ce champ est requis",
-      "invalidEmail": "Adresse email invalide",
-      "fieldLength": "Ce champs doit comporter au moins {count} caractères.",
-      "confirmPasswordMismatch": "Les mots de passe ne correspondent pas."
-    }
+    "signUp": "Inscrivez-vous",
+    "signUpAction": "Inscription",
+    "submit": "Envoyer",
+    "username": "Nom d'utilisateur",
+    "usernamePlaceholder": "Votre nom d'utilisateur"
   }
 }

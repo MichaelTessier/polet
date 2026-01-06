@@ -60,7 +60,6 @@ export function useAuth() {
       password: password,
     })
 
-    console.log("🚀 ~ signUp ~ error:", error)
     if (error) {
       setHasError(error.message);
     }
@@ -78,9 +77,7 @@ export function useAuth() {
     setLoading(true)
 
     
-    console.log("🚀 ~ forgotPassword ~ window.location.origin:", window.location.origin)
     const linkUrl = Linking.createURL('/auth/reset-password');
-    console.log("🚀 ~ forgotPassword ~ linkUrl:", linkUrl)
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: linkUrl,

@@ -1,4 +1,4 @@
-import { DsButton } from '@/components/ds/ds-button/DsButton'
+import { DsButton } from '@/components/ds/DsButton/DsButton'
 import { supabase } from '@/supabase'
 import React from 'react'
 

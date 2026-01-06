@@ -8,7 +8,9 @@ import '@/domains/auth/init';
 import AuthProvider from "@/domains/auth/providers/AuthProvider";
 import { SplashScreenController } from "@/domains/auth/components/SplashScreen/SplashScreen";
 import { StatusBar } from "expo-status-bar";
-
+import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
+import { makeZodI18nMap } from "@/zod/errorMap";
 
 function RootNavigator() {
   return (
@@ -33,6 +35,12 @@ function RootNavigator() {
 }
 
 export default function RootLayout() {
+  const { t } = useTranslation(); 
+
+  z.config({
+    customError: makeZodI18nMap({ t, handlePath: { ns: ["common", "zod"] } }),
+  });
+      
   return (
     <GluestackUIProvider>
       <AuthProvider>

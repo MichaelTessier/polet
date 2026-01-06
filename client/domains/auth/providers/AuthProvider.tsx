@@ -2,11 +2,13 @@ import { AuthContext } from '../hooks/useAuthContext'
 import { supabase } from '@/supabase'
 import type { Session } from '@supabase/supabase-js'
 import { PropsWithChildren, useEffect, useState } from 'react'
+import { useProfile } from '../hooks/useProfile'
 
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | undefined | null>()
-  const [profile, setProfile] = useState<any>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  const { profile, fetchProfile, isLoading: isProfileLoading } = useProfile()
 
   // Fetch the session once, and subscribe to auth state changes
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log('Auth state changed:', { event: _event, session })
+      // console.log('Auth state changed:', { event: _event, session })
       setSession(session)
     })
 
@@ -43,32 +45,17 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   // Fetch the profile when the session changes
   useEffect(() => {
-    const fetchProfile = async () => {
-      setIsLoading(true)
+    if (!session?.user) return
+    // console.log("🚀 ~ AuthProvider ~ Fetch the profile when the session changes:", profile)
 
-      if (session) {
-        const { data } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single()
-
-        setProfile(data)
-      } else {
-        setProfile(null)
-      }
-
-      setIsLoading(false)
-    }
-
-    fetchProfile()
-  }, [session])
+    fetchProfile(session.user.id)
+  }, [session, fetchProfile])
 
   return (
     <AuthContext.Provider
       value={{
         session,
-        isLoading,
+        isLoading: isLoading || isProfileLoading,
         profile,
         isLoggedIn: session?.user !== undefined,
       }}

@@ -5,7 +5,7 @@ import { AlertCircleIcon, EyeIcon, EyeOffIcon } from "@/components/ui/icon";
 import { Input, InputField, InputSlot, InputIcon } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { useTranslation } from 'react-i18next';
-import { DsButton } from "@/components/ds/ds-button/DsButton";
+import { DsButton } from "@/components/ds/DsButton/DsButton";
 import { VStack } from "@/components/ui/vstack";
 import { AuthHeader } from "../AuthHeader/AuthHeader";
 import { useAuth } from "../../hooks/useAuth";
