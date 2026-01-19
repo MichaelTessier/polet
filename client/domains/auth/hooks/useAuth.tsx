@@ -1,136 +1,90 @@
 import { useState } from "react";
 import { supabase } from "@/supabase";
 import * as Linking from "expo-linking";
+import { ForgotPasswordSchema, LoginSchema, ResetPasswordSchema, SignUpSchema } from "../schemas/auth.schema";
 
 export function useAuth() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [isEmailInvalid, setIsEmailInvalid] = useState(false);
-  const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
-  const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [hasError, setHasError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  async function signIn() {  
-    if(email === '') {
-      setIsEmailInvalid(true);
-      return;
-    }
-
-    if(password === '') {
-      setIsPasswordInvalid(true);
-      return;
-    }
-
-    setIsEmailInvalid(false);
-    setIsPasswordInvalid(false);  
-    setLoading(true)
+  async function signIn(data: LoginSchema) {  
+    if(!data.email || !data.password) return;
+    
+    setIsLoading(true)
 
     const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+      email: data.email,
+      password: data.password,
     })
 
     if (error) {
-      setHasError(error.message);
+      setErrorMessage(error.message);
     }
 
-    setLoading(false)
+    setIsLoading(false)
   }
 
-  async function signUp() {  
-    if(email === '') {
-      setIsEmailInvalid(true);
+  async function signUp(data: SignUpSchema) {  
+    if(data.email === '' || data.password === '') {
       return;
     }
 
-    if(password === '') {
-      setIsPasswordInvalid(true);
-      return;
-    }
-
-    setIsEmailInvalid(false);
-    setIsPasswordInvalid(false);  
-    setLoading(true)
+    setIsLoading(true)
 
     const { error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email: data.email,
+      password: data.password,
     })
 
     if (error) {
-      setHasError(error.message);
+      setErrorMessage(error.message);
     }
 
-    setLoading(false)
+    setIsLoading(false)
   }
 
-  async function forgotPassword() {  
-    if(email === '') {
-      setIsEmailInvalid(true);
-      return;
-    }
+  async function forgotPassword(data: ForgotPasswordSchema) {  
+    if(data.email === '') return;
 
-    setIsEmailInvalid(false);  
-    setLoading(true)
+    setIsLoading(true)
 
     
     const linkUrl = Linking.createURL('/auth/reset-password');
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
       redirectTo: linkUrl,
     })
 
     if (error) {
-      setHasError(error.message);
+      setErrorMessage(error.message);
     }
 
-    setLoading(false)
+    setIsLoading(false)
   }
 
-  async function resetPassword() {  
-    if(password === '') {
-      setIsPasswordInvalid(true);
+  async function resetPassword(data: ResetPasswordSchema) {  
+    if(data.password === '' || data.confirmPassword === '') {
       return;
     }
 
-    if(confirmPassword !== password) {
-      setIsConfirmPasswordInvalid(true);
-      return;
-    }
-
-    setIsPasswordInvalid(false);  
-    setLoading(true)
+    setIsLoading(true)
 
     const { error } = await supabase.auth.updateUser({
-      password: password,
+      password: data.password,
     })
 
     if (error) {
-      setHasError(error.message);
+      setErrorMessage(error.message);
     }
 
-    setLoading(false)
+    setIsLoading(false)
   } 
 
   return {
-    confirmPassword,
-    email,
+    errorMessage,
+    isLoading,
     forgotPassword,
-    hasError,
-    isConfirmPasswordInvalid,
-    isEmailInvalid,
-    isPasswordInvalid,
-    loading,
-    password,
     resetPassword,
-    setConfirmPassword,
-    setEmail,
-    setPassword,
-    setShowPassword,
-    showPassword,
     signIn,
     signUp,
   };

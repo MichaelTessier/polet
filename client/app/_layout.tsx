@@ -5,6 +5,7 @@ import '@/global.css';
 
 import '../i18n';
 import '@/domains/auth/init';
+import '@/domains/workspace/init';
 import AuthProvider from "@/domains/auth/providers/AuthProvider";
 import { SplashScreenController } from "@/domains/auth/components/SplashScreen/SplashScreen";
 import { StatusBar } from "expo-status-bar";
@@ -38,7 +39,7 @@ export default function RootLayout() {
   const { t } = useTranslation(); 
 
   z.config({
-    customError: makeZodI18nMap({ t, handlePath: { ns: ["common", "zod"] } }),
+    customError: makeZodI18nMap({ t, handlePath: { ns: ["common", "errors", "zod",] } }),
   });
       
   return (

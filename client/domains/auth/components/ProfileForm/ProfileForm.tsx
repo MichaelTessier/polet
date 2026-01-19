@@ -10,11 +10,10 @@ import { DsFormControl } from "@/components/ds/DSFormControl/DSFormControl";
 export default function ProfileForm() {
   const { t } = useTranslation('auth');
   const { form, onSubmit, isLoading } = useProfileForm();
-
+  
   return (
     <Card className="w-full" size="lg">
       <VStack space="md">
-
         <Controller
           control={form.control}
           name="username"

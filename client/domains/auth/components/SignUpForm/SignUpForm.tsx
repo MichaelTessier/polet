@@ -1,107 +1,95 @@
 import { Card } from "@/components/ui/card";
-import { FormControl, FormControlError, FormControlErrorIcon, FormControlErrorText, FormControlLabel, FormControlLabelText } from "@/components/ui/form-control";
 import { HStack } from "@/components/ui/hstack";
-import { AlertCircleIcon, EyeIcon, EyeOffIcon } from "@/components/ui/icon";
-import { Input, InputField, InputSlot, InputIcon } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { useTranslation } from 'react-i18next';
 import { DsButton } from "@/components/ds/DsButton/DsButton";
 import { VStack } from "@/components/ui/vstack";
 import { AuthHeader } from "../AuthHeader/AuthHeader";
-import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "expo-router";
+import { useAuthForm } from "../../hooks/useAuthForm";
+import { Controller } from "react-hook-form";
+import { DsFormControl } from "@/components/ds/DSFormControl/DSFormControl";
 
 
 export default function SignUpForm() {
-  const {
-    showPassword,
-    setShowPassword,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    isEmailInvalid,
-    isPasswordInvalid,
-    loading,
-    hasError,
-    signUp,
-  } = useAuth();
-  
   const { t } = useTranslation('auth');
 
   const router = useRouter();
+  const { signUpForm, signUp, isLoading, errorMessage } = useAuthForm();
 
   return (
     <Card className="w-full" size="lg">
       <AuthHeader label={t('signUp')} />
-      <FormControl 
-        isInvalid={isEmailInvalid} 
-        className="mt-6" 
-        isRequired={true}
-      >
-        <FormControlLabel className="mt-4">
-          <FormControlLabelText>{t('email')}</FormControlLabelText>
-        </FormControlLabel>
-        <Input className="my-1" size="lg">
-          <InputField
-            type="text"
-            placeholder={t('emailPlaceholder')}
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-        </Input>
-        <FormControlError>
-          <FormControlErrorIcon as={AlertCircleIcon} className="text-error-text" />
-          <FormControlErrorText className="text-error-text">
-            {t('error.requiredField')}
-          </FormControlErrorText>
-        </FormControlError>
-      </FormControl>
 
-      <FormControl isInvalid={isPasswordInvalid} isRequired={true}>
-        <FormControlLabel className="mt-4">
-          <FormControlLabelText>{t('password')}</FormControlLabelText>
-        </FormControlLabel>
-        <Input className="my-1" size="lg" >
-          <InputField
-            type={showPassword ? "text" : "password"}
-            placeholder={t('passwordPlaceholder')}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <InputSlot
-            onPress={() => setShowPassword(!showPassword)}
-            className="mr-3"
-          >
-            <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
-          </InputSlot>
-        </Input>
-        <FormControlError>
-          <FormControlErrorIcon as={AlertCircleIcon} className="text-error-text" />
-          <FormControlErrorText className="text-error-text">
-            {t('error.fieldLength', { count: 6 })}
-          </FormControlErrorText>
-        </FormControlError>
-      </FormControl>
-
-      <VStack className="my-5 gap-2">
-        <Text className="text-error-text">{hasError}</Text>
-        <DsButton 
-          label={t('signUpAction')} 
-          onPress={signUp} 
-          isLoading={loading}
+      <VStack space="md">
+        
+        <Controller
+          control={signUpForm.control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <DsFormControl 
+              label={t('email')}
+              placeholder={t('emailPlaceholder') || undefined}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              error={signUpForm.formState.errors.email}
+            />
+          )}
         />
-      </VStack>
 
-      <VStack className="justify-end">
-        <HStack className="justify-center items-center">
-          <Text size="lg">{t('alreadyHaveAccount')}</Text>
+        <Controller
+          control={signUpForm.control}
+          name="password"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <DsFormControl 
+              label={t('password')}
+              placeholder={t('passwordPlaceholder') || undefined}
+              value={value}
+              type="password"
+              onChange={onChange}
+              onBlur={onBlur}
+              error={signUpForm.formState.errors.password}
+            />
+          )}
+        />
+
+        <Controller
+          control={signUpForm.control}
+          name="confirmPassword"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <DsFormControl 
+              label={t('confirmPassword')}
+              placeholder={t('confirmPasswordPlaceholder') || undefined}
+              value={value}
+              type="password"
+              onChange={onChange}
+              onBlur={onBlur}
+              error={signUpForm.formState.errors.confirmPassword}
+            />
+          )}
+        />
+
+        <VStack className="my-5 gap-2">
+          { errorMessage && <Text className="text-error-text">{errorMessage}</Text>} 
           <DsButton 
-            label={t('login')} 
-            variant="link"
-            onPress={() => router.push('/auth/login')}
+            label={t('signUpAction')} 
+            onPress={signUp} 
+            isLoading={isLoading}
           />
-        </HStack>
+        </VStack>
+
+        <VStack className="justify-end">
+          <HStack className="justify-center items-center">
+            <Text size="lg">{t('alreadyHaveAccount')}</Text>
+            <DsButton 
+              label={t('login')} 
+              variant="link"
+              onPress={() => router.push('/auth/login')}
+            />
+          </HStack>
+        </VStack>
+
       </VStack>
     </Card>
   );

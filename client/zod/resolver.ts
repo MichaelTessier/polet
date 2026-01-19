@@ -7,19 +7,22 @@ export const zodResolver = (schema: z.ZodType) => {
     const result = schema.safeParse(values);
     
     if (!result.success) {
-      const treeifiedErrors = z.treeifyError(result.error) as  { properties?: Record<string, { errors: string[] }> };
-
-      const errors: FormErrors[] =  Object.entries(treeifiedErrors.properties ?? {}).map(([key, value])=> {
-          return {
-            [key]: {
-              message: value.errors[0],
-            }
-          }
-        })
+      const errors: FormErrors = {};
       
+      result.error.issues.forEach((issue) => {
+        const fieldName = issue.path.join('.');
+        const {customError} = z.config();
+        const error = customError!(issue as any);
+        
+        errors[fieldName] = {
+          message: (error as { message: string })?.message || 'Invalid value',
+          type: 'validation'
+        };
+      });
+
       return { 
         values: {}, 
-        errors: errors[0]
+        errors: errors
       };
     }
     

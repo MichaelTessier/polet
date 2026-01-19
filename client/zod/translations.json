@@ -5,7 +5,7 @@
       "invalid_type_received_undefined": "Field is required",
       "invalid_literal": "Invalid literal value, expected {{expected}}",
       "unrecognized_keys": "Unrecognized key(s) in object: {{keys}}",
-      "invalid_union": "Invalid input toto",
+      "invalid_union": "Invalid input",
       "invalid_union_discriminator": "Invalid discriminator value. Expected {{options}}",
       "invalid_enum_value": "Invalid enum value. Expected {{options}}, received '{{received}}'",
       "invalid_arguments": "Invalid function arguments",
@@ -59,7 +59,9 @@
       "invalid_email": "Invalid email address",
       "invalid_url": "Invalid URL",
       "invalid_uuid": "Invalid UUID",
-      "custom": "Invalid value",
+      "custom": {
+        "confirmPassword": "Passwords do not match" 
+      },
       "regex": "Invalid format"
     },
     "types": {
@@ -101,6 +103,7 @@
     "fields": {
       "email": "Email address",
       "password": "Password",
+      "confirmPassword": "Confirm Password",
       "username": "Username",
       "phone": "Phone number",
       "name": "Name",
@@ -178,7 +181,9 @@
       "invalid_email": "Adresse email invalide",
       "invalid_url": "URL invalide",
       "invalid_uuid": "UUID invalide",
-      "custom": "Valeur invalide",
+      "custom": {
+        "confirmPassword": "Les mots de passe ne correspondent pas" 
+      },
       "regex": "Format invalide"
     },
     "types": {
@@ -220,6 +225,7 @@
     "fields": {
       "email": "Adresse email",
       "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
       "username": "Nom d'utilisateur",
       "phone": "Numéro de téléphone",
       "name": "Nom",

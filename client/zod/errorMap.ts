@@ -106,6 +106,7 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
 
   let message: string;
   const errorMsg = en().localeError(issue);
+
   message = (typeof errorMsg === "string" ? errorMsg : errorMsg?.message) ?? "";
 
   const path =
@@ -230,6 +231,13 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
           defaultValue: message,
           ...path,
         });
+      }
+      else if (issue.format === "email") {
+        message = t("errors.invalid_email", {
+          ns,
+          defaultValue: message,
+          ...path,
+        });
       } else if (issue.format === "starts_with") {
         message = t(`errors.invalid_string.startsWith`, {
           startsWith: issue.prefix,
@@ -258,16 +266,16 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
       break;
     case "too_small":
       const minimum =
-        issue.origin === "date"
-          ? new Date(Number(issue.minimum))
-          : issue.minimum;
+      issue.origin === "date"
+      ? new Date(Number(issue.minimum))
+      : issue.minimum;
       message = t(
         `errors.too_small.${issue.origin}.${
           issue.exact
-            ? "exact"
-            : issue.inclusive
-            ? "inclusive"
-            : "not_inclusive"
+          ? "exact"
+          : issue.inclusive
+          ? "inclusive"
+          : "not_inclusive"
         }`,
         {
           minimum,
@@ -305,8 +313,7 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
         issue.params?.i18n,
         "errors.custom"
       );
-
-      message = t(key, {
+      message = t(`${key}.${path.path}`, {
         ...values,
         ns,
         defaultValue: message,
@@ -321,8 +328,8 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
         ...path,
       });
       break;
-    default:
-  }
+      default:
+    }
   return { message };
 };
 

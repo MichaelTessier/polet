@@ -1,6 +1,27 @@
 {
   "en": {
-    "welcome": "welcome"
+    "alreadyHaveAccount": "Already have an account?",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "createAccount": "Create one",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordAction": "Reset password",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Your full name",
+    "login": "Sign in",
+    "loginAction": "Sign in",
+    "noAccount": "Don't have an account?",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "resetPassword": "Reset password",
+    "resetPasswordAction": "Reset",
+    "signUp": "Sign up",
+    "signUpAction": "Sign up",
+    "submit": "Submit",
+    "username": "Username",
+    "usernamePlaceholder": "Your username",
   },
   "fr": {
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
@@ -19,11 +40,11 @@
     "password": "Mot de passe",
     "passwordPlaceholder": "Entrez votre mot de passe",
     "resetPassword": "Réinitialiser le mot de passe",
-    "resetPasswordAction": "Réinitialiser ",
+    "resetPasswordAction": "Réinitialiser",
     "signUp": "Inscrivez-vous",
     "signUpAction": "Inscription",
     "submit": "Envoyer",
     "username": "Nom d'utilisateur",
-    "usernamePlaceholder": "Votre nom d'utilisateur"
+    "usernamePlaceholder": "Votre nom d'utilisateur",
   }
 }
