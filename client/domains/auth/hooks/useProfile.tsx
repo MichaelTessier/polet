@@ -40,12 +40,18 @@ export function useProfile() {
     if (error) {
       console.error('Error updating profile:', error)
       setIsLoading(false)
-      return
+      return false
     }
     
     setProfile(data)
     setIsLoading(false)
+
+    return true
   }
 
-  return { profile, isLoading, fetchProfile, updateProfile };
+  function clearProfile () {
+    setProfile(null)
+  }
+
+  return { profile, isLoading, fetchProfile, updateProfile, clearProfile };
 }

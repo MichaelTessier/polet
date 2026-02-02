@@ -39,7 +39,7 @@ export default function RootLayout() {
   const { t } = useTranslation(); 
 
   z.config({
-    customError: makeZodI18nMap({ t, handlePath: { ns: ["common", "errors", "zod",] } }),
+    customError: makeZodI18nMap({ t, handlePath: { ns: ["common", "errors", "custom", "zod",] } }),
   });
       
   return (

@@ -6,10 +6,17 @@ import { DsButton } from "@/components/ds/DsButton/DsButton";
 import { VStack } from "@/components/ui/vstack";
 import { HStack } from "@/components/ui/hstack";
 import { DsFormControl } from "@/components/ds/DSFormControl/DSFormControl";
+import { useRouter } from "expo-router";
 
 export default function ProfileForm() {
   const { t } = useTranslation('auth');
   const { form, onSubmit, isLoading } = useProfileForm();
+  const router = useRouter();
+
+  async function handleFormSubmit() {
+    await onSubmit();
+    router.push('/')
+  }
   
   return (
     <Card className="w-full" size="lg">
@@ -53,7 +60,7 @@ export default function ProfileForm() {
           <DsButton 
             label={t('submit')} 
             isLoading={isLoading}
-            onPress={onSubmit}
+            onPress={handleFormSubmit}
           />
         </HStack>
       </VStack>

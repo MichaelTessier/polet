@@ -8,9 +8,8 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | undefined | null>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const { profile, fetchProfile, isLoading: isProfileLoading } = useProfile()
+  const { profile, fetchProfile, isLoading: isProfileLoading, updateProfile, clearProfile } = useProfile()
 
-  // Fetch the session once, and subscribe to auth state changes
   useEffect(() => {
     const fetchSession = async () => {
       setIsLoading(true)
@@ -33,22 +32,17 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      // console.log('Auth state changed:', { event: _event, session })
       setSession(session)
     })
 
-    // Cleanup subscription on unmount
     return () => {
       subscription.unsubscribe()
     }
   }, [])
 
-  // Fetch the profile when the session changes
   useEffect(() => {
-    if (!session?.user) return
-    // console.log("🚀 ~ AuthProvider ~ Fetch the profile when the session changes:", profile)
-
-    fetchProfile(session.user.id)
+      if (!session?.user) return
+      fetchProfile(session.user.id)
   }, [session, fetchProfile])
 
   return (
@@ -58,6 +52,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         isLoading: isLoading || isProfileLoading,
         profile,
         isLoggedIn: session?.user !== undefined,
+        updateProfile,
+        fetchProfile,
+        clearProfile,
       }}
     >
       {children}

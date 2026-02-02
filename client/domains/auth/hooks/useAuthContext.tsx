@@ -6,6 +6,9 @@ export type AuthData = {
   profile?: any | null
   isLoading: boolean
   isLoggedIn: boolean
+  updateProfile: (id: string, updatedProfile: Partial<any>) => Promise<boolean>
+  clearProfile: () => void
+  fetchProfile: (id: string) => Promise<void>
 }
 
 export const AuthContext = createContext<AuthData>({
@@ -13,6 +16,9 @@ export const AuthContext = createContext<AuthData>({
   profile: undefined,
   isLoading: true,
   isLoggedIn: false,
+  updateProfile: async () => false,
+  clearProfile: async () => {},
+  fetchProfile: async () => {}
 })
 
 export const useAuthContext = () => useContext(AuthContext)
