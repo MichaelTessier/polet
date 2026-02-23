@@ -1,5 +1,5 @@
-import { Center } from "@/components/ui/center";
-import SignUpForm from "@/domains/auth/components/SignUpForm/SignUpForm";
+import { Center } from '@/components/ui/center';
+import SignUpForm from '@/domains/auth/components/SignUpForm/SignUpForm';
 
 export default function SignUp() {
   return (

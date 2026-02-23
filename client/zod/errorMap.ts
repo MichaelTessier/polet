@@ -1,7 +1,7 @@
-import { $ZodErrorMap } from "zod/v4/core";
-import i18next, { i18n } from "i18next";
-import { ZodLiteral, ZodEnum, ZodUnion, ZodDiscriminatedUnion } from "zod/v4";
-import { en } from "zod/locales";
+import { $ZodErrorMap } from 'zod/v4/core';
+import i18next, { i18n } from 'i18next';
+import { ZodLiteral, ZodEnum, ZodUnion, ZodDiscriminatedUnion } from 'zod/v4';
+import { en } from 'zod/locales';
 
 // const jsonStringifyReplacer = (_: string, value: any): any => {
 //   if (typeof value === "bigint") {
@@ -10,18 +10,18 @@ import { en } from "zod/locales";
 //   return value;
 // };
 
-function joinValues<T extends any[]>(array: T, separator = " | "): string {
+function joinValues<T extends any[]>(array: T, separator = ' | '): string {
   return array
-    .map((val) => {
-      if (typeof val === "string") return `'${val}'`;
-      else if (typeof val === "bigint") return `${val.toString()}`;
+    .map(val => {
+      if (typeof val === 'string') return `'${val}'`;
+      else if (typeof val === 'bigint') return `${val.toString()}`;
       return val;
     })
     .join(separator);
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
-  if (typeof value !== "object" || value === null) return false;
+  if (typeof value !== 'object' || value === null) return false;
 
   for (const key in value) {
     if (!Object.prototype.hasOwnProperty.call(value, key)) return false;
@@ -37,13 +37,13 @@ const getKeyAndValues = (
   values: Record<string, unknown>;
   key: string;
 } => {
-  if (typeof param === "string") return { key: param, values: {} };
+  if (typeof param === 'string') return { key: param, values: {} };
 
   if (isRecord(param)) {
     const key =
-      "key" in param && typeof param.key === "string" ? param.key : defaultKey;
+      'key' in param && typeof param.key === 'string' ? param.key : defaultKey;
     const values =
-      "values" in param && isRecord(param.values) ? param.values : {};
+      'values' in param && isRecord(param.values) ? param.values : {};
     return { key, values };
   }
 
@@ -53,7 +53,7 @@ const getKeyAndValues = (
 export type MakeZodI18nMap = (option?: ZodI18nMapOption) => $ZodErrorMap;
 
 export type ZodI18nMapOption = {
-  t?: i18n["t"];
+  t?: i18n['t'];
   ns?: string | readonly string[];
   handlePath?: HandlePathOption | false;
 };
@@ -64,20 +64,20 @@ export type HandlePathOption = {
   keyPrefix?: string;
 };
 
-const defaultNs = "zod";
+const defaultNs = 'zod';
 
 const getReceivedDataType = (data: unknown): string => {
   const typeofData = typeof data;
 
   switch (typeofData) {
-    case "number": {
-      if (Number.isNaN(data)) return "NaN";
-      else if (Number.isInteger(data)) return "number";
-      else return "float";
+    case 'number': {
+      if (Number.isNaN(data)) return 'NaN';
+      else if (Number.isInteger(data)) return 'number';
+      else return 'float';
     }
-    case "object": {
-      if (Array.isArray(data)) return "array";
-      else if (data === null) return "null";
+    case 'object': {
+      if (Array.isArray(data)) return 'array';
+      else if (data === null) return 'null';
       else if (
         Object.getPrototypeOf(data) !== Object.prototype &&
         data?.constructor
@@ -88,7 +88,7 @@ const getReceivedDataType = (data: unknown): string => {
   return typeofData;
 };
 
-export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
+export const makeZodI18nMap: MakeZodI18nMap = option => issue => {
   const { t, ns, handlePath } = {
     t: i18next.t,
     ns: defaultNs,
@@ -96,7 +96,7 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
     handlePath:
       option?.handlePath !== false
         ? {
-            context: "with_path",
+            context: 'with_path',
             ns: option?.ns ?? defaultNs,
             keyPrefix: undefined,
             ...option?.handlePath,
@@ -107,40 +107,40 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
   let message: string;
   const errorMsg = en().localeError(issue);
 
-  message = (typeof errorMsg === "string" ? errorMsg : errorMsg?.message) ?? "";
+  message = (typeof errorMsg === 'string' ? errorMsg : errorMsg?.message) ?? '';
 
   const path =
     (issue.path?.length ?? 0) > 0 && !!handlePath
       ? {
           context: handlePath.context,
           path: t(
-            [handlePath.keyPrefix, issue.path?.join(".")]
+            [handlePath.keyPrefix, issue.path?.join('.')]
               .filter(Boolean)
-              .join("."),
+              .join('.'),
             {
               ns: handlePath.ns,
-              defaultValue: issue.path?.join("."),
+              defaultValue: issue.path?.join('.'),
             }
           ),
         }
       : {};
 
   switch (issue.code) {
-    case "invalid_type":
+    case 'invalid_type':
       if (issue.input === undefined) {
-        message = t("errors.invalid_type_received_undefined", {
+        message = t('errors.invalid_type_received_undefined', {
           ns,
           defaultValue: message,
           ...path,
         });
       } else if (issue.input === null) {
-        message = t("errors.invalid_type_received_null", {
+        message = t('errors.invalid_type_received_null', {
           ns,
           defaultValue: message,
           ...path,
         });
       } else if (issue.input === Infinity) {
-        message = t("errors.not_finite", {
+        message = t('errors.not_finite', {
           ns,
           defaultValue: message,
           ...path,
@@ -149,14 +149,14 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
         issue.input instanceof Date &&
         Number.isNaN(issue.input.getTime())
       ) {
-        message = t("errors.invalid_date", {
+        message = t('errors.invalid_date', {
           ns,
           defaultValue: message,
           ...path,
         });
       } else {
         const received = getReceivedDataType(issue.input).toLocaleLowerCase();
-        message = t("errors.invalid_type", {
+        message = t('errors.invalid_type', {
           expected: t(`types.${issue.expected}`, {
             defaultValue: issue.expected,
             ns,
@@ -171,16 +171,16 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
         });
       }
       break;
-    case "invalid_value":
+    case 'invalid_value':
       if (issue.inst instanceof ZodLiteral) {
-        message = t("errors.invalid_literal", {
+        message = t('errors.invalid_literal', {
           expected: joinValues(issue.values),
           ns,
           defaultValue: message,
           ...path,
         });
       } else if (issue.inst instanceof ZodEnum) {
-        message = t("errors.invalid_enum_value", {
+        message = t('errors.invalid_enum_value', {
           options: joinValues(issue.values),
           received: issue.input,
           ns,
@@ -189,63 +189,62 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
         });
       }
       break;
-    case "unrecognized_keys":
-      message = t("errors.unrecognized_keys", {
-        keys: joinValues(issue.keys, ", "),
+    case 'unrecognized_keys':
+      message = t('errors.unrecognized_keys', {
+        keys: joinValues(issue.keys, ', '),
         count: issue.keys.length,
         ns,
         defaultValue: message,
         ...path,
       });
       break;
-    case "invalid_union":
+    case 'invalid_union':
       // This one must be first (narrower type)
       if (issue.inst instanceof ZodDiscriminatedUnion) {
         const options = issue.inst?.def.options.map(
           (opt: any) => opt.def.shape.type.def.values[0]
         );
-        message = t("errors.invalid_union_discriminator", {
+        message = t('errors.invalid_union_discriminator', {
           options: joinValues(options),
           ns,
           defaultValue: message,
           ...path,
         });
       } else if (issue.inst instanceof ZodUnion) {
-        message = t("errors.invalid_union", {
+        message = t('errors.invalid_union', {
           ns,
           defaultValue: message,
           ...path,
         });
       } else {
-        message = t("errors.invalid_union", {
+        message = t('errors.invalid_union', {
           ns,
           defaultValue: message,
           ...path,
         });
       }
       break;
-    case "invalid_format":
-      if (issue.format === "date") {
-        message = t("errors.invalid_date", {
+    case 'invalid_format':
+      if (issue.format === 'date') {
+        message = t('errors.invalid_date', {
           ns,
           defaultValue: message,
           ...path,
         });
-      }
-      else if (issue.format === "email") {
-        message = t("errors.invalid_email", {
+      } else if (issue.format === 'email') {
+        message = t('errors.invalid_email', {
           ns,
           defaultValue: message,
           ...path,
         });
-      } else if (issue.format === "starts_with") {
+      } else if (issue.format === 'starts_with') {
         message = t(`errors.invalid_string.startsWith`, {
           startsWith: issue.prefix,
           ns,
           defaultValue: message,
           ...path,
         });
-      } else if (issue.format === "ends_with") {
+      } else if (issue.format === 'ends_with') {
         message = t(`errors.invalid_string.endsWith`, {
           endsWith: issue.suffix,
           ns,
@@ -264,54 +263,54 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
         });
       }
       break;
-    case "too_small":
+    case 'too_small':
       const minimum =
-      issue.origin === "date"
-      ? new Date(Number(issue.minimum))
-      : issue.minimum;
+        issue.origin === 'date'
+          ? new Date(Number(issue.minimum))
+          : issue.minimum;
       message = t(
         `errors.too_small.${issue.origin}.${
           issue.exact
-          ? "exact"
-          : issue.inclusive
-          ? "inclusive"
-          : "not_inclusive"
+            ? 'exact'
+            : issue.inclusive
+              ? 'inclusive'
+              : 'not_inclusive'
         }`,
         {
           minimum,
-          count: typeof minimum === "number" ? minimum : undefined,
+          count: typeof minimum === 'number' ? minimum : undefined,
           ns,
           defaultValue: message,
           ...path,
         }
       );
       break;
-    case "too_big":
+    case 'too_big':
       const maximum =
-        issue.origin === "date"
+        issue.origin === 'date'
           ? new Date(Number(issue.maximum))
           : issue.maximum;
       message = t(
         `errors.too_big.${issue.origin}.${
           issue.exact
-            ? "exact"
+            ? 'exact'
             : issue.inclusive
-            ? "inclusive"
-            : "not_inclusive"
+              ? 'inclusive'
+              : 'not_inclusive'
         }`,
         {
           maximum,
-          count: typeof maximum === "number" ? maximum : undefined,
+          count: typeof maximum === 'number' ? maximum : undefined,
           ns,
           defaultValue: message,
           ...path,
         }
       );
       break;
-    case "custom":
+    case 'custom':
       const { key, values } = getKeyAndValues(
         issue.params?.i18n,
-        "errors.custom"
+        'errors.custom'
       );
       message = t(`${key}.${path.path}`, {
         ...values,
@@ -320,16 +319,16 @@ export const makeZodI18nMap: MakeZodI18nMap = (option) => (issue) => {
         ...path,
       });
       break;
-    case "not_multiple_of":
-      message = t("errors.not_multiple_of", {
+    case 'not_multiple_of':
+      message = t('errors.not_multiple_of', {
         multipleOf: issue.divisor,
         ns,
         defaultValue: message,
         ...path,
       });
       break;
-      default:
-    }
+    default:
+  }
   return { message };
 };
 

@@ -1,50 +1,135 @@
-# Welcome to your Expo app 👋
+# Polet
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application mobile multi-plateforme de gestion familiale collaborative. Les utilisateurs créent ou rejoignent un **hub** (espace partagé) dans lequel ils organisent des **familles**, gèrent des membres et envoient des invitations.
 
-## Get started
+## Stack technique
 
-1. Install dependencies
+| Couche | Technologie |
+|--------|-------------|
+| Framework mobile | Expo 54 + React Native 0.81 |
+| Langage | TypeScript (strict) |
+| UI | Gluestack UI + NativeWind (Tailwind CSS) |
+| Routage | Expo Router (file-based) |
+| Formulaires | React Hook Form + Zod 4 |
+| State | Context API + Hooks custom |
+| Backend | Supabase (PostgreSQL + Auth + Storage) |
+| i18n | i18next + expo-localization |
 
-   ```bash
-   npm install
-   ```
+## Démarrage
 
-2. Start the app
+### Prérequis
 
-   ```bash
-   npx expo start
-   ```
+- Node.js
+- Yarn
+- Supabase CLI
+- Expo CLI
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+# Depuis le répertoire client/
+yarn install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Lancer l'app
 
-## Learn more
+```bash
+yarn start         # Serveur de développement
+yarn ios           # Simulateur iOS
+yarn android       # Émulateur Android
+yarn web           # Navigateur web
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### Base de données locale
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+# Démarrer Supabase en local
+supabase start
 
-## Join the community
+# Appliquer les migrations et seeds
+yarn db:reset
 
-Join our community of developers creating universal apps.
+# Générer les types TypeScript depuis le schéma
+yarn types:local
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Architecture
+
+Le projet suit une architecture **Domain-Driven Design** : le code est organisé par domaine métier, pas par couche technique.
+
+```
+client/
+├── app/                    # Routes Expo Router (file-based)
+│   ├── _layout.tsx         # Layout racine avec providers
+│   ├── index.tsx           # Page d'accueil
+│   ├── auth/               # Routes d'authentification
+│   └── hub/                # Routes hub
+│
+├── components/
+│   ├── ui/                 # Wrappers Gluestack UI + NativeWind
+│   └── ds/                 # Composants Design System custom
+│       ├── DsButton/
+│       ├── DsFormControl/
+│       ├── DsFormInput/
+│       ├── DsFormSelect/
+│       └── DsSelect/
+│
+├── domains/                # Logique métier par domaine
+│   ├── auth/               # Auth : composants, hooks, schemas, provider
+│   └── hub/                # Hub : composants, hooks, schemas
+│
+├── supabase/
+│   ├── migrations/         # Migrations SQL
+│   ├── seeds/              # Données de test
+│   └── types/              # Types générés + exports custom
+│
+├── i18n/                   # Configuration i18next
+└── zod/                    # Error map i18n pour Zod
+```
+
+### Patterns clés
+
+- **Routes protégées** via `Stack.Protected guard={boolean}` (Expo Router)
+- **Formulaires type-safe** : Zod schema → RHF resolver → composants DS
+- **Erreurs Zod traduites** via i18next
+- **Types DB auto-générés** depuis Supabase (`yarn types:generate`)
+
+## Modèle de données
+
+```
+auth.users
+  └── profiles (1:1, auto-créé par trigger)
+        └── hubs (1 hub max par utilisateur)
+              ├── hub_members  (rôles : admin, member, viewer)
+              └── families
+                    ├── family_members      (rôles : parent, child, guardian)
+                    └── family_invitations  (token UUID, expiration 7 jours)
+```
+
+La sécurité est gérée par **Row Level Security (RLS)** PostgreSQL sur toutes les tables. Les opérations complexes passent par des fonctions RPC Supabase.
+
+## Features
+
+| Feature | État |
+|---------|------|
+| Auth (register, login, reset password) | ✅ |
+| Gestion de profil | ✅ |
+| Création / gestion de Hub | ✅ |
+| Membres Hub avec rôles | ✅ |
+| Gestion de familles | ✅ |
+| Invitations famille par email | ✅ |
+| Multi-langue (FR/EN) | ✅ |
+| Todo lists | Schéma défini, non implémenté |
+| CI/CD GitHub Actions | Non démarré |
+
+## Scripts utiles
+
+```bash
+yarn lint           # ESLint
+yarn lint:fix       # ESLint avec auto-fix
+yarn format         # Prettier
+yarn types:generate # Générer types depuis Supabase lié
+yarn types:local    # Générer types depuis Supabase local
+yarn types:check    # Vérification TypeScript
+yarn db:reset       # Reset base de données locale
+```

@@ -6,9 +6,15 @@ create table profiles (
   full_name text,
   avatar_url text,
   website text,
+  email text,
 
-  constraint username_length check (char_length(username) >= 3)
+  constraint username_length check (char_length(username) >= 3),
+  constraint email_format check (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
 );
+
+-- Index pour les performances sur l'email
+CREATE INDEX idx_profiles_email ON public.profiles(email);
+
 -- Set up Row Level Security (RLS)
 -- See https://supabase.com/docs/guides/database/postgres/row-level-security for more details.
 alter table profiles
@@ -30,14 +36,41 @@ returns trigger
 set search_path = ''
 as $$
 begin
-  insert into public.profiles (id, full_name, avatar_url)
-  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
+  insert into public.profiles (id, full_name, avatar_url, email, username)
+  values (
+    new.id, 
+    new.raw_user_meta_data->>'full_name', 
+    new.raw_user_meta_data->>'avatar_url',
+    new.email,
+    coalesce(new.raw_user_meta_data->>'username', split_part(new.email, '@', 1))
+  );
   return new;
 end;
 $$ language plpgsql security definer;
+
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
+
+-- Fonction pour synchroniser l'email lors des mises à jour
+CREATE OR REPLACE FUNCTION sync_profile_email()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Lors de la mise à jour de l'email dans auth.users
+  IF TG_OP = 'UPDATE' AND OLD.email != NEW.email THEN
+    UPDATE public.profiles 
+    SET email = NEW.email 
+    WHERE id = NEW.id;
+  END IF;
+  
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger pour synchroniser l'email automatiquement
+CREATE TRIGGER sync_profile_email_trigger
+  AFTER UPDATE ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION sync_profile_email();
 
 -- Set up Storage!
 insert into storage.buckets (id, name)

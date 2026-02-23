@@ -1,15 +1,17 @@
-import { Box } from "@/components/ui/box";
-import LogOutButton from "@/domains/auth/components/LogOutButton/LogOutButton";
-import { useAuthContext } from "@/domains/auth/hooks/useAuthContext";
-import { supabase } from "@/supabase";
-import { Session } from "@supabase/supabase-js";
-import { Link } from "expo-router";
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Box } from '@/components/ui/box';
+import LogOutButton from '@/domains/auth/components/LogOutButton/LogOutButton';
+import { useAuthContext } from '@/domains/auth/hooks/useAuthContext';
+import { useHub } from '@/domains/hub/hooks/useHub';
+import { supabase } from '@/supabase';
+import { Session } from '@supabase/supabase-js';
+import { Link } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 
 export default function Index() {
   const [session, setSession] = useState<Session | null>(null);
-  const { profile, isLoggedIn } = useAuthContext()
+  const { profile, isLoggedIn } = useAuthContext();
+  const { checkUserHasHub } = useHub();
 
   useEffect(() => {
     // Fetch session from Supabase
@@ -27,14 +29,14 @@ export default function Index() {
     return () => {
       listener.subscription.unsubscribe();
     };
-  }, [])
+  }, []);
 
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <Box className="p-5">
@@ -43,11 +45,12 @@ export default function Index() {
         {session && session.user && <Text>{session.user.id}</Text>}
 
         <Text>Username: {profile?.username}</Text>
-        <Text>Logged In: {isLoggedIn ? "Yes" : "No"}</Text>
+        <Text>Logged In: {isLoggedIn ? 'Yes' : 'No'}</Text>
 
-        { isLoggedIn &&  <LogOutButton ></LogOutButton> }
+        {isLoggedIn && <LogOutButton></LogOutButton>}
         <Link href="/auth/login">Go to Auth</Link>
         <Link href="/auth/profile">Go to Profile</Link>
+        <Link href="/hub/create-hub">Go to Create Hub</Link>
       </Box>
     </View>
   );

@@ -1,12 +1,12 @@
-import { Card } from "@/components/ui/card";
+import { Card } from '@/components/ui/card';
 import { useTranslation } from 'react-i18next';
-import { useProfileForm } from "../../hooks/useProfileForm";
+import { useProfileForm } from '../../hooks/useProfileForm';
 import { Controller } from 'react-hook-form';
-import { DsButton } from "@/components/ds/DsButton/DsButton";
-import { VStack } from "@/components/ui/vstack";
-import { HStack } from "@/components/ui/hstack";
-import { DsFormControl } from "@/components/ds/DSFormControl/DSFormControl";
-import { useRouter } from "expo-router";
+import { DsButton } from '@/components/ds/DsButton/DsButton';
+import { VStack } from '@/components/ui/vstack';
+import { HStack } from '@/components/ui/hstack';
+import { DsFormInput } from '@/components/ds/DsFormInput/DsFormInput';
+import { useRouter } from 'expo-router';
 
 export default function ProfileForm() {
   const { t } = useTranslation('auth');
@@ -15,17 +15,20 @@ export default function ProfileForm() {
 
   async function handleFormSubmit() {
     await onSubmit();
-    router.push('/')
+    router.push('/');
   }
-  
+
   return (
-    <Card className="w-full" size="lg">
+    <Card
+      className="w-full"
+      size="lg"
+    >
       <VStack space="md">
         <Controller
           control={form.control}
           name="username"
           render={({ field: { onChange, onBlur, value } }) => (
-            <DsFormControl 
+            <DsFormInput
               label={t('username')}
               placeholder={t('usernamePlaceholder') || undefined}
               value={value}
@@ -40,7 +43,7 @@ export default function ProfileForm() {
           control={form.control}
           name="full_name"
           render={({ field: { onChange, onBlur, value } }) => (
-            <DsFormControl 
+            <DsFormInput
               label={t('fullName')}
               placeholder={t('fullNamePlaceholder') || undefined}
               value={value}
@@ -52,19 +55,18 @@ export default function ProfileForm() {
         />
 
         <HStack space="md">
-          <DsButton 
-            label={t('cancel')} 
+          <DsButton
+            label={t('cancel')}
             isLoading={isLoading}
             onPress={() => form.reset()}
           />
-          <DsButton 
-            label={t('submit')} 
+          <DsButton
+            label={t('submit')}
             isLoading={isLoading}
             onPress={handleFormSubmit}
           />
         </HStack>
       </VStack>
-
     </Card>
   );
 }

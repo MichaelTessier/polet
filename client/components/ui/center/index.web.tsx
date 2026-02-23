@@ -11,7 +11,11 @@ const Center = React.forwardRef<HTMLDivElement, ICenterProps>(function Center(
   ref
 ) {
   return (
-    <div className={centerStyle({ class: className })} {...props} ref={ref} />
+    <div
+      className={centerStyle({ class: className })}
+      {...props}
+      ref={ref}
+    />
   );
 });
 

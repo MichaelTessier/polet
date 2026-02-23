@@ -6,10 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "com.polet",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

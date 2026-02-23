@@ -11,7 +11,11 @@ const Box = React.forwardRef<HTMLDivElement, IBoxProps>(function Box(
   ref
 ) {
   return (
-    <div ref={ref} className={boxStyle({ class: className })} {...props} />
+    <div
+      ref={ref}
+      className={boxStyle({ class: className })}
+      {...props}
+    />
   );
 });
 

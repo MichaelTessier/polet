@@ -1,56 +1,59 @@
-import { supabase } from "@/supabase";
-import { Profile } from "@/supabase/types";
-import { useState } from "react";
+import { supabase } from '@/supabase';
+import { Profile } from '@/supabase/types';
+import { useState } from 'react';
 
 export function useProfile() {
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [profile, setProfile] = useState<Profile | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  async function fetchProfile (id: Profile['id']) {
-    setIsLoading(true)
+  async function fetchProfile(id: Profile['id']) {
+    console.log('🚀 ~ fetchProfile ~ id:', id);
+    setIsLoading(true);
 
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', id)
-      .single()
+      .single();
 
     if (error) {
-      console.error('Error fetching profile:', error)
-      setIsLoading(false)
-      return
+      console.error('Error fetching profile:', error);
+      setIsLoading(false);
+      return;
     }
 
-    setProfile(data)
+    setProfile(data);
 
-    setIsLoading(false)
+    setIsLoading(false);
   }
 
-  async function updateProfile (id: Profile['id'], updatedProfile: Partial<Profile>) {
-    setIsLoading(true)
+  async function updateProfile(
+    id: Profile['id'],
+    updatedProfile: Partial<Profile>
+  ) {
+    setIsLoading(true);
 
     const { data, error } = await supabase
       .from('profiles')
       .update(updatedProfile)
       .eq('id', id)
       .select()
-      .single()
+      .single();
 
     if (error) {
-      console.error('Error updating profile:', error)
-      setIsLoading(false)
-      return false
+      console.error('Error updating profile:', error);
+      setIsLoading(false);
+      return false;
     }
-    
-    setProfile(data)
-    setIsLoading(false)
 
-    return true
+    setProfile(data);
+    setIsLoading(false);
+
+    return true;
   }
 
-  function clearProfile () {
-    setProfile(null)
+  function clearProfile() {
+    setProfile(null);
   }
 
   return { profile, isLoading, fetchProfile, updateProfile, clearProfile };

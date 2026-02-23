@@ -210,7 +210,12 @@ const Heading = memo(
     }
 
     return (
-      <MappedHeading className={className} size={size} ref={ref} {...props} />
+      <MappedHeading
+        className={className}
+        size={size}
+        ref={ref}
+        {...props}
+      />
     );
   })
 );

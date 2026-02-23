@@ -1,5 +1,5 @@
-import { Center } from "@/components/ui/center";
-import ForgotPasswordForm from "@/domains/auth/components/ForgotPasswordForm/ForgotPasswordForm";
+import { Center } from '@/components/ui/center';
+import ForgotPasswordForm from '@/domains/auth/components/ForgotPasswordForm/ForgotPasswordForm';
 
 export default function ForgotPassword() {
   return (

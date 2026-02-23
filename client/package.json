@@ -3,6 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
+    "clear": "rm -rf node_modules package-lock.json yarn.lock && yarn && expo start --clear --reset-cache",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
@@ -11,9 +12,13 @@
     "start:ios": "expo start --ios",
     "start:web": "expo start --web",
     "lint": "expo lint",
+    "lint:fix": "expo lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "types:generate": "supabase gen types typescript --linked > supabase/types/generated.ts",
     "types:local": "supabase gen types typescript --local > supabase/types/generated.ts",
-    "types:check": "tsc --noEmit"
+    "types:check": "tsc --noEmit",
+    "db:reset": "supabase db reset && yarn types:local"
   },
   "dependencies": {
     "@expo/html-elements": "^0.10.1",
@@ -70,7 +75,10 @@
     "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "pg": "^8.16.3",
+    "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "supabase": "^2.67.0",
     "tailwindcss": "^3.4.18",

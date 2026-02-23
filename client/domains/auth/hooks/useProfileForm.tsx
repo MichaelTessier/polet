@@ -4,9 +4,9 @@ import { useAuthContext } from './useAuthContext';
 import { zodResolver } from '@/zod/resolver';
 import { useEffect } from 'react';
 
-export function useProfileForm () {
-  const { profile } = useAuthContext()
-  const { updateProfile, isLoading } = useAuthContext();
+export function useProfileForm() {
+  const { profile } = useAuthContext();
+  const { updateProfile, isLoading } = useAuthContext();
 
   const form = useForm({
     resolver: zodResolver(profileSchema),
@@ -15,11 +15,10 @@ export function useProfileForm () {
       full_name: profile?.full_name || '',
     },
     mode: 'onChange',
-    }
-  );
+  });
 
   useEffect(() => {
-    if(profile) {
+    if (profile) {
       form.reset({
         username: profile.username || '',
         full_name: profile.full_name || '',
@@ -27,16 +26,15 @@ export function useProfileForm () {
     }
   }, [profile, form]);
 
-  async function onSubmit (data: ProfileSchema) {
-    if(!profile?.id && !data) return
+  async function onSubmit(data: ProfileSchema) {
+    if (!profile?.id && !data) return;
 
     await updateProfile(profile?.id, data);
   }
-
 
   return {
     form,
     onSubmit: form.handleSubmit(onSubmit),
     isLoading,
-  }
+  };
 }

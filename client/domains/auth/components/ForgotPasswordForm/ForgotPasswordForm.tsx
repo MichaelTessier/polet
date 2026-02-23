@@ -1,32 +1,36 @@
-import { Card } from "@/components/ui/card";
-import { HStack } from "@/components/ui/hstack";
-import { Text } from "@/components/ui/text";
+import { Card } from '@/components/ui/card';
+import { HStack } from '@/components/ui/hstack';
+import { Text } from '@/components/ui/text';
 import { useTranslation } from 'react-i18next';
-import { DsButton } from "@/components/ds/DsButton/DsButton";
-import { VStack } from "@/components/ui/vstack";
-import { AuthHeader } from "../AuthHeader/AuthHeader";
-import { useRouter } from "expo-router";
-import { Controller } from "react-hook-form";
-import { DsFormControl } from "@/components/ds/DSFormControl/DSFormControl";
-import { useAuthForm } from "../../hooks/useAuthForm";
-
+import { DsButton } from '@/components/ds/DsButton/DsButton';
+import { VStack } from '@/components/ui/vstack';
+import { AuthHeader } from '../AuthHeader/AuthHeader';
+import { useRouter } from 'expo-router';
+import { Controller } from 'react-hook-form';
+import { DsFormInput } from '@/components/ds/DsFormInput/DsFormInput';
+import { useAuthForm } from '../../hooks/useAuthForm';
 
 export default function ForgotPasswordForm() {
   const { t } = useTranslation('auth');
-  const { forgotPasswordForm, forgotPassword, isLoading, errorMessage } = useAuthForm();
+  const { forgotPasswordForm, forgotPassword, isLoading, errorMessage } =
+    useAuthForm();
 
   const router = useRouter();
 
   return (
-    <Card className="w-full" size="lg">
+    <Card
+      className="w-full"
+      size="lg"
+    >
       <AuthHeader label={t('forgotPassword')} />
-      
+
       <VStack space="md">
         <Controller
           control={forgotPasswordForm.control}
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
-            <DsFormControl 
+            <DsFormInput
+              isRequired
               label={t('email')}
               placeholder={t('emailPlaceholder') || undefined}
               value={value}
@@ -38,19 +42,21 @@ export default function ForgotPasswordForm() {
         />
 
         <VStack className="my-5 gap-2">
-          { errorMessage && <Text className="text-error-text">{errorMessage}</Text> }
-          <DsButton 
-            label={t('forgotPasswordAction')} 
-            onPress={forgotPassword} 
+          {errorMessage && (
+            <Text className="text-error-text">{errorMessage}</Text>
+          )}
+          <DsButton
+            label={t('forgotPasswordAction')}
+            onPress={forgotPassword}
             isLoading={isLoading}
           />
         </VStack>
 
         <VStack className="justify-end">
-          <HStack className="justify-center items-center">
+          <HStack className="items-center justify-center">
             <Text size="lg">{t('alreadyHaveAccount')}</Text>
-            <DsButton 
-              label={t('login')} 
+            <DsButton
+              label={t('login')}
               variant="link"
               onPress={() => router.push('/auth/login')}
             />

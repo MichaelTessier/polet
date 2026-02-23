@@ -7,12 +7,7 @@ export const profileSchema = z.object({
     .max(20)
     .regex(/^[a-zA-Z0-9_]+$/)
     .or(z.literal('')),
-  full_name: z
-    .string()
-    .min(2)
-    .max(50)
-    .or(z.literal('')),
-})
-
+  full_name: z.string().min(2).max(50).or(z.literal('')),
+});
 
 export type ProfileSchema = z.infer<typeof profileSchema>;

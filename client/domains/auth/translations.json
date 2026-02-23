@@ -21,7 +21,7 @@
     "signUpAction": "Sign up",
     "submit": "Submit",
     "username": "Username",
-    "usernamePlaceholder": "Your username",
+    "usernamePlaceholder": "Your username"
   },
   "fr": {
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
@@ -29,7 +29,7 @@
     "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
     "createAccount": "Créez-en un",
     "email": "Email",
-    "emailPlaceholder": "Entrez votre email", 
+    "emailPlaceholder": "Entrez votre email",
     "forgotPassword": "Mot de passe oublié ?",
     "forgotPasswordAction": "Réinitialiser le mot de passe",
     "fullName": "Nom complet",
@@ -45,6 +45,6 @@
     "signUpAction": "Inscription",
     "submit": "Envoyer",
     "username": "Nom d'utilisateur",
-    "usernamePlaceholder": "Votre nom d'utilisateur",
+    "usernamePlaceholder": "Votre nom d'utilisateur"
   }
 }

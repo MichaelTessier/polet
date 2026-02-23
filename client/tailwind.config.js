@@ -177,7 +177,7 @@ module.exports = {
           light: '#FBFBFB',
           dark: '#181719',
         },
-        border: { 
+        border: {
           color: 'rgb(var(--color-background-300)/<alpha-value>)',
           hover: 'rgb(var(--color-background-500)/<alpha-value>)',
           error: 'rgb(var(--color-background-error)/<alpha-value>)',
@@ -185,7 +185,6 @@ module.exports = {
           // muted: 'rgb(var(--color-background-muted)/<alpha-value>)',
           // success: 'rgb(var(--color-background-success)/<alpha-value>)',
           // info: 'rgb(var(--color-background-info)/<alpha-value>)',
- 
         },
         indicator: {
           primary: 'rgb(var(--color-indicator-primary)/<alpha-value>)',

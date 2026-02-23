@@ -1,9 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@/zod/resolver';
-import { ForgotPasswordSchema, forgotPasswordSchema, LoginSchema, loginSchema, ResetPasswordSchema, resetPasswordSchema, SignUpSchema, signUpSchema } from '../schemas/auth.schema';
+import {
+  ForgotPasswordSchema,
+  forgotPasswordSchema,
+  LoginSchema,
+  loginSchema,
+  ResetPasswordSchema,
+  resetPasswordSchema,
+  SignUpSchema,
+  signUpSchema,
+} from '../schemas/auth.schema';
 import { useAuth } from './useAuth';
 
-export function useAuthForm () {
+export function useAuthForm() {
   const {
     isLoading,
     errorMessage,
@@ -19,7 +28,7 @@ export function useAuthForm () {
     mode: 'onChange',
   });
 
-  async function onSignIn (data: LoginSchema) {
+  async function onSignIn(data: LoginSchema) {
     await signIn(data);
   }
 
@@ -29,7 +38,7 @@ export function useAuthForm () {
     mode: 'onChange',
   });
 
-  async function onSignUp (data: SignUpSchema) {
+  async function onSignUp(data: SignUpSchema) {
     await signUp(data);
   }
 
@@ -39,7 +48,7 @@ export function useAuthForm () {
     mode: 'onChange',
   });
 
-  async function onForgotPassword (data: ForgotPasswordSchema) {
+  async function onForgotPassword(data: ForgotPasswordSchema) {
     await forgotPassword(data);
   }
 
@@ -49,7 +58,7 @@ export function useAuthForm () {
     mode: 'onChange',
   });
 
-  async function onResetPassword (data: ResetPasswordSchema) {
+  async function onResetPassword(data: ResetPasswordSchema) {
     await resetPassword(data);
   }
 
@@ -63,6 +72,6 @@ export function useAuthForm () {
     resetPassword: resetPasswordForm.handleSubmit(onResetPassword),
     signUp: signUpForm.handleSubmit(onSignUp),
     isLoading,
-    errorMessage
-  }
+    errorMessage,
+  };
 }

@@ -1,0 +1,32 @@
+{
+  "en": {
+    "workspace": "Workspace"
+  },
+  "fr": {
+    "workspace": "Espace de travail",
+    "create": {
+      "title": "Créer un espace famille",
+      "description": "Créez un espace de travail pour partager vos listes de tâches avec votre famille ou vos collègues.",
+      "name": "Nom de l'espace",
+      "namePlaceholder": "Notre garde partagée",
+      "familyNumber": "Nombre de familles",
+      "familyOptionLabel_one": "{{count}} famille",
+      "familyOptionLabel_other": "{{count}} familles",
+      "submit": "Continuer",
+      "cancel": "Annuler"
+    },
+    "addFamilies": {
+      "title": "Ajouter des familles",
+      "name": "Nom de la famille {{count}}",
+      "namePlaceholder": "Famille Dupont",
+      "members": "Membres de la famille",
+      "addMember": "Ajouter un membre",
+      "memberName": "Nom du membre {{count}}",
+      "memberNamePlaceholder": "Jean Dupont",
+      "memberEmail": "Email du membre {{count}}",
+      "memberEmailPlaceholder": "Email du membre",
+      "submit": "Continuer",
+      "cancel": "Annuler"
+    }
+  }
+}

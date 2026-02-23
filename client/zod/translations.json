@@ -60,7 +60,7 @@
       "invalid_url": "Invalid URL",
       "invalid_uuid": "Invalid UUID",
       "custom": {
-        "confirmPassword": "Passwords do not match" 
+        "confirmPassword": "Passwords do not match"
       },
       "regex": "Invalid format"
     },
@@ -182,7 +182,7 @@
       "invalid_url": "URL invalide",
       "invalid_uuid": "UUID invalide",
       "custom": {
-        "confirmPassword": "Les mots de passe ne correspondent pas" 
+        "confirmPassword": "Les mots de passe ne correspondent pas"
       },
       "regex": "Format invalide"
     },
