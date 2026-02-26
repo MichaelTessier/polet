@@ -1,9 +1,13 @@
 import { useAuthContext } from '@/domains/auth/hooks/useAuthContext';
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
 
 export default function WorkspaceLayout() {
   const { isLoggedIn } = useAuthContext();
   console.log('🚀 ~ WorkspaceLayout ~ isLoggedIn:', isLoggedIn);
+
+  if (!isLoggedIn) {
+    return <Redirect href="/" />;
+  }
 
   return (
     <>
