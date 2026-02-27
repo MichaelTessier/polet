@@ -27,6 +27,15 @@
       "memberEmailPlaceholder": "Email du membre",
       "submit": "Continuer",
       "cancel": "Annuler"
+    },
+    "addNurses": {
+      "title": "Ajouter des nurses",
+      "name": "Nom de la nurse {{count}}",
+      "namePlaceholder": "Marie Dupont",
+      "email": "Email de la nurse {{count}}",
+      "emailPlaceholder": "marie@exemple.fr",
+      "submit": "Terminer",
+      "cancel": "Annuler"
     }
   }
 }

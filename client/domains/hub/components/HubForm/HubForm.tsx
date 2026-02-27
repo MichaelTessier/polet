@@ -6,6 +6,10 @@ import { Text } from '@/components/ui/text';
 import HubFormCreate from './HubFormCreate';
 import { useState } from 'react';
 import HubFormAddFamilies from './HubFormAddFamilies';
+import HubFormAddNurses from './HubFormAddNurses';
+import { useRouter } from 'expo-router';
+
+const NURSE_COUNT = 1;
 
 const STATES = {
   CREATE_HUB: 'create_hub',
@@ -17,6 +21,7 @@ type State = (typeof STATES)[keyof typeof STATES];
 
 export default function HubForm() {
   const { t } = useTranslation('hub');
+  const router = useRouter();
 
   const [state, setState] = useState<State>(STATES.CREATE_HUB);
   const [familyNumber, setFamilyNumber] = useState<number>(0);
@@ -38,6 +43,10 @@ export default function HubForm() {
     setState(STATES.ADD_NURSES);
   }
 
+  function handleAddNurses() {
+    router.replace('/');
+  }
+
   return (
     <Card
       className="w-full"
@@ -55,8 +64,13 @@ export default function HubForm() {
             onAddFamilies={handleAddFamilies}
           />
         )}
-        {state === STATES.ADD_NURSES && <Text>Nurses</Text>}
-        {/* { state === STATES.ADD_NURSES && <HubFormAddNurses hubId={hubId} /> } */}
+        {state === STATES.ADD_NURSES && (
+          <HubFormAddNurses
+            hubId={hubId}
+            nurseCount={NURSE_COUNT}
+            onAddNurses={handleAddNurses}
+          />
+        )}
       </VStack>
     </Card>
   );

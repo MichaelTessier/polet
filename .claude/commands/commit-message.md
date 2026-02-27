@@ -37,4 +37,5 @@ Use the following format for making the commit message:
 2. Propose commit message with appropriate emoji
 3. Ask for confirmation before committing
 
+The <concise_description> MUST NOT exceed 72 characters.
 DO NOT auto-commit - wait for user approval, and only commit if the user says so.
