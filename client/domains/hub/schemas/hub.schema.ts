@@ -18,3 +18,10 @@ export const familySchema = z.object({
 });
 
 export type FamilySchema = z.infer<typeof familySchema>;
+
+export const nurseSchema = z.object({
+  name: z.string().min(3).max(50),
+  email: z.string().email(),
+});
+
+export type NurseSchema = z.infer<typeof nurseSchema>;
