@@ -35,8 +35,6 @@ yarn types:check        # TypeScript check (tsc --noEmit)
 yarn types:local        # Regenerate supabase/types/generated.ts from local DB
 yarn types:generate     # Regenerate types from linked Supabase project
 yarn db:reset           # Reset local DB + regenerate types
-yarn jest               # Run all tests
-yarn jest <path>        # Run a single test file
 ```
 
 ## Environment variables
@@ -63,13 +61,13 @@ To add a new domain: create the folder, add an `init.ts` that registers translat
 
 ### Route protection
 
-Layout files use `<Redirect>` from `expo-router` for imperative redirects:
+Routes use Expo Router's `Stack.Protected` with a boolean guard:
 
 ```tsx
-if (!isLoggedIn) return <Redirect href="/" />;
+<Stack.Protected guard={isLoggedIn}>
 ```
 
-Auth routes (`app/auth/_layout.tsx`) use `Stack.Protected` with `guard={!isLoggedIn}`. Protected routes (e.g., `app/hub/_layout.tsx`) use the `Redirect` pattern above. No need to check `isLoading` in layouts — the `SplashScreen` component blocks rendering until auth state is resolved.
+Auth routes guard on `!isLoggedIn`, protected app routes guard on `isLoggedIn`.
 
 ### Auth flow
 
@@ -111,27 +109,6 @@ RLS policies enforce access at the DB level — no need for client-side permissi
 ### i18n
 
 Translations are split by domain. Each domain's `init.ts` registers its `translations.json` namespace. Zod validation errors are automatically translated — error keys in schemas must match keys in `zod/translations.json`.
-
-### Documentation lookup with context7
-
-Before implementing any feature that involves a library or framework (Expo Router, Supabase, React Hook Form, NativeWind, Gluestack UI, Zod, etc.), use the `context7` MCP tool to fetch up-to-date documentation:
-
-```
-mcp__context7__resolve-library-id  →  find the library ID
-mcp__context7__query-docs           →  fetch relevant docs for the feature
-```
-
-Always verify the correct API, props, and patterns for the version in use before writing code. Do not rely on training data alone — library APIs change between versions.
-
-### Feature workflow
-
-The project uses a spec-then-plan-then-implement workflow:
-
-1. **`_specs/<feature-slug>.md`** — functional spec (what & why), created with `/spec`
-2. **`_plans/<feature-slug>.md`** — implementation plan (how), created in plan mode
-3. Feature branches follow the pattern `claude/feature/<feature-slug>`
-
-Use `/spec <short idea>` to create a spec + branch automatically. Use `/commit-message` to generate a conventional commit message from staged changes.
 
 ### Additional Coding Preferences
 
